@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.sSNOM_spectroscopy import load, plot, transforms
+from . import load, plot, transforms
 
 
 class THzWaveform:
