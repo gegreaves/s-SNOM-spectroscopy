@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def load_neaspec_file(filepath):
 
     with open(filepath, "r", encoding="utf-8") as f:
@@ -23,9 +24,12 @@ def load_neaspec_file(filepath):
         sep="\t",
     )
 
-    data.drop(columns=[col for col in data.columns if col.startswith("Unnamed")], inplace=True)
+    data.drop(columns=[col for col in data.columns
+                       if col.startswith("Unnamed")],
+              inplace=True)
 
     return data, metadata
+
 
 def parse_metadata(lines):
     metadata = {}
