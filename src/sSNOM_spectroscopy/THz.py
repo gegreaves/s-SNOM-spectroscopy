@@ -57,6 +57,18 @@ class THzWaveform:
         fft_data = transforms.FFT(self.data)
         return THzSpectrum(fft_data, self.metadata)
 
+    @property
+    def scanner_centre(self):
+        """
+        Get the scanner centre position from the metadata.
+
+        Returns:
+        tuple: The scanner centre position as a tuple (x, y).
+        """
+        values = self.metadata['Scanner Center Position (X, Y)']['value']
+        values = tuple(float(x) * 1e-6 for x in values)
+        return values
+
 
 class THzWaveforms:
     """ For line scans or 2D scans, where each position has a waveform. """
