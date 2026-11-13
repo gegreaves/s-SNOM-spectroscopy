@@ -26,6 +26,8 @@ def plot_spectrum(THzSpectrum, ax=None, harmonics=None, frequency_range=None,
         harmonics = [0, 1, 2, 3, 4, 5]
     amplitude = THzSpectrum.amplitude
 
+    label_ext = kwargs.pop("label", "")  # take label out
+    title = kwargs.pop("title", "THz Spectrum")  # take title out
     if fit_range is not None:
         phase = THzSpectrum.corrected_phase(fit_range)
     else:
@@ -33,14 +35,14 @@ def plot_spectrum(THzSpectrum, ax=None, harmonics=None, frequency_range=None,
 
     for n in harmonics:
         ax_amp.plot(THzSpectrum.data['Frequency'],
-                    amplitude[f'O{n}'], label=f'n={n}')
+                    amplitude[f'O{n}'], label=f'n={n} - {label_ext}')
         ax_phase.plot(THzSpectrum.data['Frequency'],
-                      phase[f'O{n}'], label=f'n={n}')
+                      phase[f'O{n}'], label=f'n={n} - {label_ext}')
     ax_amp.set_ylabel('Amplitude')
-    ax_amp.set_title('THz Spectrum')
+    ax_amp.set_title(title)
     ax_phase.set_xlabel('Frequency (THz)')
     ax_phase.set_ylabel('Phase')
-    ax_phase.set_title('THz Spectrum - Phase')
+    # ax_phase.set_title('THz Spectrum - Phase')
 
     ax_amp.legend()
 
@@ -67,12 +69,15 @@ def plot_waveform(THzWaveform, ax=None, harmonics=None, **kwargs):
     if harmonics is None:
         harmonics = [0, 1, 2, 3, 4, 5]
 
+    label_ext = kwargs.pop("label", "")  # take label out
+    title = kwargs.pop("title", "THz Waveform")  # take title out
+
     for n in harmonics:
         ax.plot(THzWaveform.data['Time (ps)'],
-                np.real(THzWaveform.data[f'O{n}']), label=f'n={n}', **kwargs)
+                np.real(THzWaveform.data[f'O{n}']), label=f'n={n} - {label_ext}', **kwargs)
     ax.set_xlabel('Time (ps)')
     ax.set_ylabel('Sampled waveform (a.u.)')
-    ax.set_title('THz Waveform')
+    ax.set_title(title)
 
     ax.legend()
 

@@ -152,3 +152,18 @@ def FFT(data: pd.DataFrame) -> pd.DataFrame:
               )
 
     return fft_df
+
+
+def average_dfs(dfs: list[pd.DataFrame]) -> pd.DataFrame:
+    """
+    Average a list of DataFrames.
+
+    Parameters:
+    dfs (list[pd.DataFrame]): List of DataFrames to be averaged.
+
+    Returns:
+    pd.DataFrame: Averaged DataFrame.
+    """
+    combined_df = pd.concat(dfs)
+    averaged_df = combined_df.groupby(level=0).mean()
+    return averaged_df

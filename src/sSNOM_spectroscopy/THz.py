@@ -100,6 +100,7 @@ class THzWaveforms:
                                                                 metadata)
         return cls(waveforms, metadata)
 
+
     def apodise(self, window_type='tukey', alpha=None):
         """
         Apodise the waveform data for all waveforms using a specified window
@@ -153,6 +154,13 @@ class THzSpectrum:
         data = transforms.amp_phase_to_complex(data)
 
         return cls(data, metadata)
+
+    @classmethod
+    def from_averaging(cls, spectra: list['THzSpectrum'], metadata=None):
+        # Average the data from all the spectra
+        averaged_data = transforms.average_dfs([s.data for s in spectra])
+
+        return cls(averaged_data, metadata)
 
     def plot(self, ax=None, harmonics=None, frequency_range=None, **kwargs):
         return plot.plot_spectrum(self,
